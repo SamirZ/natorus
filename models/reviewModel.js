@@ -74,6 +74,9 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
   }
 };
 
+// One review per user
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 reviewSchema.pre(/^findOneAnd/, async function(next) {
   this.review = await this.findOne();
   next();
